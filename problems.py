@@ -51,19 +51,19 @@ def solution(tree):
 def solution2(array):
     if not array:
         return 0
-    m, k = 0, 0
+    m = 0
     n = len(array)
     visited = [False for _ in range(n)]
     results = lambda l: sum([1 for x in l if not x])
     visited[0] = True
     loop_control = []
+
     while True:
-        m = k + array[k]
+        m = m + array[m]
         if m >= n or m < 0:
             return results(visited)
         elif visited[m]:
             loop_control.append(m)
-            print loop_control, visited
             if len(loop_control) > n:
                 return results(visited)
         elif not visited[m]:
@@ -71,6 +71,3 @@ def solution2(array):
             visited[m] = True
 
     return sum([1 for x in visited if not x]), visited
-
-
-

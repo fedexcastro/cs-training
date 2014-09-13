@@ -3,6 +3,58 @@ import math
 import utils
 
 
+def problem_1():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_2():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_3():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_4():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_5():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_6():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_7():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_8():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_9():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_10():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_11():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_12():
+    raise NotImplementedError("Problem not implemented")
+
+
+def problem_13():
+    raise NotImplementedError("Problem not implemented")
+
+
 def problem_14(to=1000000):
     """
     Longest Collatz sequence:
@@ -66,20 +118,111 @@ def problem_16():
     return sum(map(int, str(2**1000)))
 
 
-def problem_17():
-    raise NotImplementedError("Problem not implemented")
+def problem_17_aux(n):
+    n_dict = {0: '',
+              1: "one",
+              2: "two",
+              3: "three",
+              4: "four",
+              5: "five",
+              6: "six",
+              7: "seven",
+              8: "eight",
+              9: "nine",
+              10: "ten",
+              11: "eleven",
+              12: "twelve",
+              13: "thirteen",
+              14: "fourteen",
+              15: "fifteen",
+              16: "sixteen",
+              17: "seventeen",
+              18: "eighteen",
+              19: "nineteen",
+              20: "twenty",
+              30: "thirty",
+              40: "forty",
+              50: "fifty",
+              60: "sixty",
+              70: "seventy",
+              80: "eighty",
+              90: "ninety"}
+    if n > 1000:
+        return ValueError("should be less than 1000")
+
+    s = str(n)
+    l = len(s)
+
+    if l == 1:
+        return n_dict[n]
+    elif l == 2 and n >= 20:
+        if s[1] == '0':
+            return n_dict[int(s[0]+'0')]
+        return '%s-%s' % (n_dict[int(s[0]+'0')], n_dict[int(s[1])])
+    elif l == 2 and n < 20:
+        return n_dict[n]
+    elif l == 3:
+        if s[1] != '0' and s[2] != '0':
+            if int(s[1:]) < 20:
+                return '%s hundred and %s' % (n_dict[int(s[0])], n_dict[int(s[1:])])
+            return '%s hundred and %s-%s' % (n_dict[int(s[0])], n_dict[int(s[1]+'0')], n_dict[int(s[2])])
+        elif s[1] != '0' and s[2] == '0':
+            return '%s hundred and %s' % (n_dict[int(s[0])], n_dict[int(s[1]+'0')])
+        elif s[2] == '0' and s[1] == '0':
+            return '%s hundred' % n_dict[int(s[0])]
+        elif s[2] != '0' and s[1] == '0':
+            return '%s hundred and %s' % (n_dict[int(s[0])], n_dict[int(s[2])])
+        else:
+            tmp = '%s hundred and %s' % (n_dict[int(s[0])], n_dict[int(s[2])])
+            return tmp[:-1]
+    elif n == 1000:
+        return 'one thousand'
 
 
-def problem_18():
-    raise NotImplementedError("Problem not implemented")
+def problem_17(n=1000, white_spaces=False, separator='', hyphens=False, show_result=False):
+    r = separator.join([problem_17_aux(x) for x in range(1, n+1)])
+    if not white_spaces:
+        r = r.replace(' ', '')
+    if not hyphens:
+        r = r.replace('-', '')
+    return (r, len(r)) if show_result else len(r)
+
+
+def problem_18(input_pyramid=''):
+    input_pyramid = input_pyramid or "75\n" \
+                                     "95 64\n" \
+                                     "17 47 82\n" \
+                                     "18 35 87 10\n" \
+                                     "20 04 82 47 65\n" \
+                                     "19 01 23 75 03 34\n" \
+                                     "88 02 77 73 07 63 67\n" \
+                                     "99 65 04 28 06 16 70 92\n" \
+                                     "41 41 26 56 83 40 80 70 33\n" \
+                                     "41 48 72 33 47 32 37 16 94 29\n" \
+                                     "53 71 44 65 25 43 91 52 97 51 14\n" \
+                                     "70 11 33 28 77 73 17 78 39 68 17 57\n" \
+                                     "91 71 52 38 17 14 91 43 58 50 27 29 48\n" \
+                                     "63 66 04 68 89 53 67 30 73 16 69 87 40 31\n" \
+                                     "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"
+
+    pyramid = [map(int, row.split()) for row in input_pyramid.split('\n') if row]
+    while len(pyramid) > 1:
+        low_row = pyramid.pop()
+        top_row = pyramid.pop()
+        new_row = []
+
+        for index, value in enumerate(top_row):
+            new_row.append(top_row[index] + max(low_row[index], low_row[index + 1]))
+        pyramid.append(new_row)
+    return pyramid[0][0]
 
 
 def problem_19():
     raise NotImplementedError("Problem not implemented")
 
 
-def problem_20():
-    raise NotImplementedError("Problem not implemented")
+def problem_20(n=100):
+    return sum(map(int, str(math.factorial(n))))
 
 
 def problem_21():
@@ -87,7 +230,21 @@ def problem_21():
 
 
 def problem_22():
-    raise NotImplementedError("Problem not implemented")
+    import string
+    alph_dict = dict([(x, i+1) for i, x in enumerate(string.ascii_uppercase)])
+    result = 0
+    with open('./problems_data/problem_22_names.txt') as fnames:
+        names = fnames.readline()
+
+    names = names.replace('"', '').split(',')
+
+    for index, name in enumerate(sorted(names)):
+        name_count = 0
+        for c in name:
+            name_count += alph_dict[c]
+        result += name_count * (index + 1)
+
+    return result
 
 
 def problem_23():

@@ -1,0 +1,7 @@
+
+# A good library to work with graphs.
+networkx==1.9
+
+# A well known math library (using for high-performance algorithms).
+numpy==1.9.0
+
